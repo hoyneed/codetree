@@ -44,15 +44,15 @@ int main() {
     bool first = true;
 
     while (!st.empty()) {
-        Task cur = st.back();
+        const auto& [preStart, inStart, len, output] = st.back();
         st.pop_back();
 
-        if (cur.len == 0) continue;
+        if (len == 0) continue;
 
-        const int root = preorder[cur.preStart];
+        const int root = preorder[preStart];
 
         // 후위 순회의 루트 출력 단계
-        if (cur.output) {
+        if (output) {
             if (!first) cout << ' ';
             cout << root;
             first = false;
@@ -63,18 +63,18 @@ int main() {
         int rootPos = pos[root];
 
         // 왼쪽과 오른쪽 서브트리 크기
-        int leftLen = rootPos - cur.inStart;
-        int rightLen = cur.len - leftLen - 1;
+        int leftLen = rootPos - inStart;
+        int rightLen = len - leftLen - 1;
 
         // 역순으로 삽입
 
         // 3. 루트 출력
-        st.push_back({cur.preStart, cur.inStart,  cur.len, true});
+        st.push_back({preStart, inStart,  len, true});
 
         // 2. 오른쪽 서브트리
         if (rightLen > 0) {
             st.push_back({
-                cur.preStart + 1 + leftLen,
+                preStart + 1 + leftLen,
                 rootPos + 1,
                 rightLen,
                 false
@@ -84,8 +84,8 @@ int main() {
         // 1. 왼쪽 서브트리
         if (leftLen > 0) {
             st.push_back({
-                cur.preStart + 1,
-                cur.inStart,
+                preStart + 1,
+                inStart,
                 leftLen,
                 false
             });
