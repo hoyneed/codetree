@@ -28,14 +28,11 @@ void Build() {
             if(next == up[cur][0]) continue;
             up[next][0] = cur;
             depth[next] = depth[cur] + 1;
-            st.push_back(next);
-        }
-    }
 
-    for(int k=1;k<LOG;++k) {
-        for(int u=1;u<=N;++u) {
-            const int mid = up[u][k-1];
-            up[u][k] = up[mid][k-1];
+            for (int k=1;k<LOG;++k) {
+                up[next][k] = up[up[next][k-1]][k-1];
+            }
+            st.push_back(next);
         }
     }
 }
