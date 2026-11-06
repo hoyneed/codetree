@@ -64,17 +64,15 @@ int main() {
     bool flag = (order.size() != 1);
     for(int i=0;i<(int)order.size();++i) {
         const int u = order[i];
-        vector<int> temp;
+        const int sz = order.size();
         for(const int v : graph[u]) {
             if(--indegree[v] == 0) {
-                temp.push_back(v);
+                order.push_back(v);
             }
         }
-        if((int)temp.size() > 1) {
+        if((int)order.size() > sz + 1) {
             flag = true;
         }
-        if(!temp.empty())
-            order.insert(order.end(),temp.begin(),temp.end());
     }
     if((int)order.size() != total) {
         cout << -1;
