@@ -21,17 +21,16 @@ int main() {
     cin >> N;
     for(int i=1;i<=N;++i) {
         cin >> times[i];
+        dp[i] = times[i];
         int u;
         for(cin >> u; u != -1; cin >> u) {
             graph[u].push_back(i);
             ++indegree[i];
         }
     }
-    fill_n(dp.begin()+1, N, -1);
     queue<int> q;
     for(int i=1;i<=N;++i) {
         if(indegree[i] == 0) {
-            dp[i] = times[i];
             q.push(i);
         }
     }
