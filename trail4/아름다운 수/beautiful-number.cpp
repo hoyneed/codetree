@@ -16,9 +16,7 @@ void Run() {
             st.push_back(i);
         }
         Run();
-        for(int j=0;j<i;++j) {
-            st.pop_back();
-        }
+        st.resize(st.size() - i);
     }
 }
 } // namespace
